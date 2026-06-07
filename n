@@ -1,0 +1,66 @@
+    if status_filter != "ALL": tickets = [t for t in tickets if t["status"] 
+        == status_filter]
+k    """
+
+    for t in tickets:
+        html += f"""
+        <div class="ticket">
+            <p><b>ID:</b> {t['id']}</p>
+            <p><b>Email:</b> {t['email']}</p>
+            <p><b>Subject:</b> {t['subject']}</p>
+            <p><b>Status:</b> {t['status']}</p>
+            <p><b>Message:</b> {t['message']}</p>
+
+            <a class="close" href="/api/close/{t['id']}">Close</a>
+
+            <div class="reply">
+                <b>Reply:</b> {t.get('reply', 'No reply yet')}
+            </div>
+
+            <form action="/api/reply/{t['id']}" method="get">
+                <input name="msg" placeholder="Write reply">
+                <button type="submit">Send Reply</button>
+            </form>
+        </div>
+        """
+
+    html += "</body></html>"
+    return html
+
+
+@app.route("/api/close/<ticket_id>")
+def api_close(ticket_id):
+    tickets = load_tickets()
+
+    for t in tickets:
+        if t["id"] == ticket_id:
+            t["status"] = "CLOSED"
+
+            with open("data/tickets.json", "w") as f:
+                json.dump(tickets, f, indent=4)
+
+            return {"success": True}
+
+    return {"success": False}
+
+
+@app.route("/api/reply/<ticket_id>")
+def api_reply(ticket_id):
+    msg = request.args.get("msg", "")
+
+    tickets = load_tickets()
+
+    for t in tickets:
+        if t["id"] == ticket_id:
+            t["reply"] = msg
+
+            with open("data/tickets.json", "w") as f:
+                json.dump(tickets, f, indent=4)
+
+            return {"success": True}
+
+    return {"success": False}
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
