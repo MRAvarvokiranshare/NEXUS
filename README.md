@@ -1,6 +1,6 @@
 # 🚀 NEXUS - Advanced Support & Control System
 
-صحفه را در مبایل بع دسکتاپ تعغیر دهید 
+صحفه را در مبایل به دسکتاپ تعغیر دهید 
 
 <div align="center">
 
