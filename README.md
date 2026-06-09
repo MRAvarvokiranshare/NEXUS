@@ -1,5 +1,7 @@
 # 🚀 NEXUS - Advanced Support & Control System
 
+صحفه را در مبایل بع دسکتاپ تعغیر دهید 
+
 <div align="center">
 
   <img src="https://raw.githubusercontent.com/MRAvarvokiranshare/NEXUS-X/main/banner.png" alt="NEXUS-X Banner" width="100%">
